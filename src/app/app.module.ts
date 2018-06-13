@@ -5,6 +5,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { Geolocation } from '@ionic-native/geolocation';
+
 //Firestore
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -14,6 +16,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from './../pages/login/login';
 import { UsuarioProvider } from '../providers/usuario/usuario';
+import { UbicationProvider } from '../providers/ubication/ubication';
 
 
 const environment = {
@@ -51,7 +54,9 @@ const environment = {
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UsuarioProvider
+    UsuarioProvider,
+    UbicationProvider,
+    Geolocation
   ]
 })
 export class AppModule {}
