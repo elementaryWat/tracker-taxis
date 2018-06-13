@@ -1,3 +1,4 @@
+import { HomePage } from './../home/home';
 import { UsuarioProvider } from './../../providers/usuario/usuario';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, AlertController, LoadingController, Loading, ToastController  } from 'ionic-angular';
@@ -86,8 +87,7 @@ export class LoginPage {
   }
 
   ingresar(){
-    console.log("Se redireccionara al home");
-    
+    this.navCtrl.setRoot(HomePage);
   }
 
 }
