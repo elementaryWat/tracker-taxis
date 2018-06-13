@@ -1,6 +1,6 @@
 import { Platform, UrlSerializer, GESTURE_TOGGLE } from 'ionic-angular';
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Storage } from '@ionic/storage';
 
 /*
@@ -31,8 +31,11 @@ export class UsuarioProvider {
     })
   }
 
-  setCoordsUser(lat:number,long:number){
-    
+  setCoordsUser(lat:number,lng:number){
+    let taxista:AngularFirestoreDocument= this.db.doc(`taxistas/${this.currentUser.username}`);
+    taxista.update({
+      lat,lng
+    })
   }
 
   saveToStorage(user:any){

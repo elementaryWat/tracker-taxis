@@ -17,6 +17,7 @@ export class HomePage {
 
   salir(){
     this.userProvider.removeStorage();
+    // this.ubicationProvider.detenerUbicacion();
     this.navCtrl.setRoot(LoginPage);
   }
 
