@@ -1,3 +1,4 @@
+import { UsuarioProvider } from './../../providers/usuario/usuario';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, AlertController  } from 'ionic-angular';
 
@@ -8,7 +9,6 @@ import { IonicPage, NavController, NavParams, Slides, AlertController  } from 'i
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -18,7 +18,8 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController,
      private alertCtrl:AlertController,
-     public navParams: NavParams) {
+     public navParams: NavParams,
+    private usuarioProvider:UsuarioProvider) {
   }
 
   ionViewDidLoad() {
@@ -52,6 +53,11 @@ export class LoginPage {
       ]
     });
     prompt.present();
+  }
+
+  ingresar(){
+    console.log("Se redireccionara al home");
+    
   }
 
 }
