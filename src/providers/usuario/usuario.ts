@@ -12,9 +12,11 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class UsuarioProvider {
   currentUser:any;
+  taxista:AngularFirestoreDocument;
   constructor(public db:AngularFirestore,
     private storage:Storage,
     private platform:Platform) {
+      
   }
 
   validarIdUser(id:string){
@@ -22,6 +24,7 @@ export class UsuarioProvider {
       this.db.collection('taxistas', ref => ref.where('username','==',id)).valueChanges().subscribe(data=>{
         if(data.length>0){
           this.currentUser=data[0];
+          this.taxista= this.db.doc(`taxistas/${this.currentUser.username}`);
           this.saveToStorage(this.currentUser);
           resolve(true)
         }else{
@@ -32,8 +35,9 @@ export class UsuarioProvider {
   }
 
   setCoordsUser(lat:number,lng:number){
-    let taxista:AngularFirestoreDocument= this.db.doc(`taxistas/${this.currentUser.username}`);
-    taxista.update({
+    this.currentUser.lat=lat;
+    this.currentUser.lng=lng;
+    this.taxista.update({
       lat,lng
     })
   }
@@ -54,6 +58,7 @@ export class UsuarioProvider {
         this.storage.get('user').then(user=>{
           if(user){
             this.currentUser=JSON.parse(user);
+            this.taxista= this.db.doc(`taxistas/${this.currentUser.username}`);
             resolve(true);
           }else{
             resolve(false);
@@ -62,6 +67,7 @@ export class UsuarioProvider {
       }else{
         if(localStorage.getItem('user')){
           this.currentUser=JSON.parse(localStorage.getItem('user'));
+          this.taxista= this.db.doc(`taxistas/${this.currentUser.username}`);
           resolve(true);
         }else{
           resolve(false);

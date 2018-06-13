@@ -9,10 +9,16 @@ import { UsuarioProvider } from '../../providers/usuario/usuario';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  lat: number = 51.678418;
+  lng: number = 7.809007;
 
   constructor(public navCtrl: NavController,
-    private userProvider:UsuarioProvider,
-    private ubicationProvider:UbicationProvider) {
+    private ubicationProvider:UbicationProvider,
+    public userProvider:UsuarioProvider) {
+      userProvider.taxista.valueChanges().subscribe(data=>{
+        this.lat=data.lat;
+        this.lng=data.lng;
+      })
   }
 
   salir(){

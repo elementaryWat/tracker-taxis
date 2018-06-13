@@ -18,6 +18,8 @@ import { LoginPage } from './../pages/login/login';
 import { UsuarioProvider } from '../providers/usuario/usuario';
 import { UbicationProvider } from '../providers/ubication/ubication';
 
+import { AgmCoreModule } from '@agm/core';
+
 
 const environment = {
   production: false,
@@ -42,7 +44,10 @@ const environment = {
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(environment.firebase),
     IonicStorageModule.forRoot(),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAC3bNAIrYi6yQKKv8vB21SdndTkZ2_T80'
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
