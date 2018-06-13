@@ -1,6 +1,8 @@
+import { LoginPage } from './../login/login';
 import { UbicationProvider } from './../../providers/ubication/ubication';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { UsuarioProvider } from '../../providers/usuario/usuario';
 
 @Component({
   selector: 'page-home',
@@ -9,8 +11,13 @@ import { NavController } from 'ionic-angular';
 export class HomePage {
 
   constructor(public navCtrl: NavController,
+    private userProvider:UsuarioProvider,
     private ubicationProvider:UbicationProvider) {
+  }
 
+  salir(){
+    this.userProvider.removeStorage();
+    this.navCtrl.setRoot(LoginPage);
   }
 
 }

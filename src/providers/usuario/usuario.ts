@@ -31,6 +31,10 @@ export class UsuarioProvider {
     })
   }
 
+  setCoordsUser(lat:number,long:number){
+    
+  }
+
   saveToStorage(user:any){
     if(this.platform.is('cordova')){
       //Celular
@@ -61,6 +65,15 @@ export class UsuarioProvider {
         }
       }
     })
+  }
+
+  removeStorage(){
+    if(this.platform.is('cordova')){
+      //Celular
+      this.storage.remove('user')
+    }else{
+      localStorage.removeItem('user');
+    }
   }
 
 }

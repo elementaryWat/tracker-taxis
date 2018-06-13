@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { Geolocation } from '@ionic-native/geolocation';
+import { UsuarioProvider } from '../usuario/usuario';
 
 /*
   Generated class for the UbicationProvider provider.
@@ -10,15 +12,16 @@ import { Geolocation } from '@ionic-native/geolocation';
 @Injectable()
 export class UbicationProvider {
 
-  constructor(public geolocation: Geolocation) {
+  constructor(public geolocation: Geolocation,
+    private userProvider:UsuarioProvider) {
     console.log("Servicio de geolocalizacion");
-    
+
     this.geolocation.getCurrentPosition().then((resp) => {
       console.log(resp.coords);
-      
-     }).catch((error) => {
-       console.log('Error getting location', error);
-     });
+
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
 
 }
