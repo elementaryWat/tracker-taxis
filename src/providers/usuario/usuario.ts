@@ -9,9 +9,21 @@ import { AngularFirestore } from 'angularfire2/firestore';
 */
 @Injectable()
 export class UsuarioProvider {
-
+  currentUser:any;
   constructor(public db:AngularFirestore) {
-    
+  }
+
+  validarIdUser(id:string){
+    return new Promise((resolve,reject)=>{
+      this.db.collection('taxistas', ref => ref.where('username','==',id)).valueChanges().subscribe(data=>{
+        if(data.length>0){
+          this.currentUser=data[0];
+          resolve(true)
+        }else{
+          resolve(false);
+        }
+      });
+    })
   }
 
 }
