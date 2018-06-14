@@ -2,6 +2,7 @@ import { Platform, UrlSerializer, GESTURE_TOGGLE } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Storage } from '@ionic/storage';
+import { Subscription } from 'rxjs';
 
 /*
   Generated class for the UsuarioProvider provider.
@@ -13,6 +14,7 @@ import { Storage } from '@ionic/storage';
 export class UsuarioProvider {
   currentUser:any;
   taxista:AngularFirestoreDocument;
+  doc:Subscription;
   constructor(public db:AngularFirestore,
     private storage:Storage,
     private platform:Platform) {
@@ -21,16 +23,16 @@ export class UsuarioProvider {
 
   validarIdUser(id:string){
     return new Promise((resolve,reject)=>{
-      this.db.collection('taxistas', ref => ref.where('username','==',id)).valueChanges().subscribe(data=>{
-        if(data.length>0){
-          this.currentUser=data[0];
+      this.doc=this.db.doc(`taxistas/${id}`).valueChanges().subscribe(data=>{
+        if(data){
+          this.currentUser=data;
           this.taxista= this.db.doc(`taxistas/${this.currentUser.username}`);
           this.saveToStorage(this.currentUser);
           resolve(true)
         }else{
           resolve(false);
         }
-      });
+      })
     })
   }
 
@@ -83,6 +85,7 @@ export class UsuarioProvider {
     }else{
       localStorage.removeItem('user');
     }
+    this.doc.unsubscribe();
   }
 
 }

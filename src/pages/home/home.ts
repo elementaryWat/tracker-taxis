@@ -15,15 +15,19 @@ export class HomePage {
   constructor(public navCtrl: NavController,
     private ubicationProvider:UbicationProvider,
     public userProvider:UsuarioProvider) {
-      userProvider.taxista.valueChanges().subscribe(data=>{
-        this.lat=data.lat;
-        this.lng=data.lng;
-      })
+  }
+
+  ionViewDidEnter(){
+    this.userProvider.taxista.valueChanges().subscribe(data=>{
+      this.lat=data.lat;
+      this.lng=data.lng;
+    })
+    this.ubicationProvider.inicializarUbicacion();
   }
 
   salir(){
     this.userProvider.removeStorage();
-    // this.ubicationProvider.detenerUbicacion();
+    this.ubicationProvider.detenerUbicacion();
     this.navCtrl.setRoot(LoginPage);
   }
 

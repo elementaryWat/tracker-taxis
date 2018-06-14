@@ -16,9 +16,11 @@ export class UbicationProvider {
   constructor(public geolocation: Geolocation,
     private userProvider:UsuarioProvider) {
     console.log("Servicio de geolocalizacion");
+  }
 
+  inicializarUbicacion(){
     this.geolocation.getCurrentPosition().then((data) => {
-      userProvider.setCoordsUser(data.coords.latitude,data.coords.longitude);
+      this.userProvider.setCoordsUser(data.coords.latitude,data.coords.longitude);
 
     }).catch((error) => {
       console.log('Error getting location', error);
@@ -30,7 +32,7 @@ export class UbicationProvider {
       // data.coords.longitude
       console.log(data.coords);
       
-      userProvider.setCoordsUser(data.coords.latitude,data.coords.longitude);
+      this.userProvider.setCoordsUser(data.coords.latitude,data.coords.longitude);
     });
   }
 
